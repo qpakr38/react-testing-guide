@@ -17,7 +17,24 @@ const asyncRequestSucceeds = () => {
     expect(listItemElements).not.toHaveLength(0);
   });
 };
+const asyncRequestFail = () => {
+  test("renders posts if request Fail", () => {
+    window.fetch = jest.fn();
+    window.fetch.mockResolvedValueOnce({
+      json: async () => [],
+    });
+
+    //Arrange
+    render(<Async />);
+    //Act
+    //...nothing
+    //Assert
+    const listItemElements = screen.queryByRole("listitem");
+    expect(listItemElements).toBeNull();
+  });
+};
 
 describe("Async Components Test", () => {
   asyncRequestSucceeds();
+  asyncRequestFail();
 });
