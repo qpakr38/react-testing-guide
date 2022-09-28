@@ -9,7 +9,6 @@ const rendersHelloWorldAsAText = () => {
   test("renders Hello World as a text", () => {
     //Arrange
     render(<Greeting />);
-
     //Act
     //...nothing
 
@@ -22,7 +21,6 @@ const buttonWasNotClicked = () => {
   test("renders 'good to see you' if the button was NOT clicked", () => {
     //Arrange
     render(<Greeting />);
-
     //Act
 
     //Assert
@@ -34,7 +32,6 @@ const buttonWasClickedShowChanged = () => {
   test("renders 'Changed' if the button was clicked", () => {
     //Arrange
     render(<Greeting />);
-
     //Act
     const buttonElements = screen.getByRole("button");
     userEvent.click(buttonElements);
@@ -46,13 +43,15 @@ const buttonWasClickedShowChanged = () => {
 const buttonWasClickedHiddenGoodSeeYou = () => {
   test("dose not renders 'Good See You'! if the button was clicked", () => {
     //Arrange
-
+    render(<Greeting />);
     //Act
     const buttonElements = screen.getByRole("button");
     userEvent.click(buttonElements);
     //Assert
-    const outputElement = screen.getByText("good to see you", { exact: false });
-    expect(outputElement).not.toBeInTheDocument();
+    const outputElement = screen.queryByRole("good to see you", {
+      exact: false,
+    });
+    expect(outputElement).toBeNull();
   });
 };
 
